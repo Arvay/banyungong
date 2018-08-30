@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>填写信息</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/popper.js/1.12.5/umd/popper.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+    <div style="height: 40px"></div>
+    <h2>填写信息</h2>
+    <form id="reg">
+        <div class="form-group">
+            <label for="start_site">出发地:</label>
+            <input type="text" class="form-control" name="start_site" id="start_site" placeholder="输入出发地" value="山东">
+        </div>
+
+        <div class="form-group">
+            <label for="end_site">目的地:</label>
+            <input type="text" class="form-control" name="end_site" id="end_site" placeholder="输入目的地" value="北京">
+        </div>
+
+        <div class="form-group">
+            <label for="start_time">出发时间:</label>
+            <input type="text" class="form-control" name="start_time" id="start_time" placeholder="输入出发时间" value="2018.10.1">
+        </div>
+
+        <div class="form-group">
+            <label for="seat">坐席要求:</label>
+            <input type="text" class="form-control" name="seat" id="seat" placeholder="输入坐席要求" value="二等座">
+        </div>
+
+        <div class="form-group">
+            <label for="train_time">发车时间:</label>
+            <input type="text" class="form-control" name="train_time" id="train_time" placeholder="输入发车时间" value="2018.1.3">
+        </div>
+
+        <div class="form-group">
+            <label for="user_name">姓名:</label>
+            <input type="text" class="form-control" name="user_name" id="user_name" placeholder="输入姓名" value="陈威">
+        </div>
+
+        <div class="form-group">
+            <label for="user_id">身份证:</label>
+            <input type="text" class="form-control" name="user_id" id="user_id" placeholder="输入身份证" value="370828199411161314">
+        </div>
+
+        <div class="form-group">
+            <label for="user_phone">手机号:</label>
+            <input type="text" class="form-control" name="user_phone" id="user_phone" placeholder="输入手机号" value="17600079797">
+        </div>
+
+        <div class="form-group">
+            <label for="12306_name">12306账号:</label>
+            <input type="text" class="form-control" name="12306_name" id="12306_name" placeholder="输入12306账号" value="237826090@qqcom">
+        </div>
+
+        <div class="form-group">
+            <label for="12306_pwd">12306密码:</label>
+            <input type="text" class="form-control"  name="12306_pwd" id="12306_pwd" placeholder="输入12306密码" value="c123123">
+        </div>
+
+        <div class="form-group">
+            <label for="user_message">备注:</label>
+            <input type="text" class="form-control" name="user_message" id="user_message" placeholder="输入备注" value="这是备注不知道到些什么，嗷嗷嗷啊">
+        </div>
+
+        <button type="submit" class="btn btn-primary">提交</button>
+    </form>
+    <div style="height: 50px"></div>
+</div>
+</body>
+<script>
+    $(function() {
+        $('.btn').click(function() {
+            var resultJson = {};// 要传递给后台的对象数据
+            var array = $("#reg").serializeArray();// 序列化表单内容
+            $(array).each(function() {
+                resultJson[this.name] = this.value.trim();
+            });
+
+            $.ajax({
+                type: 'POST',
+                url: 'http://localhost:3000/api/addcard',
+                data: resultJson,
+                dataType: "json",
+                success: function (data) {
+                    console.log(data);
+                }
+            });
+
+            console.log(resultJson)
+            return false
+        });
+    });
+</script>
+</html>

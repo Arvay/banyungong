@@ -1,0 +1,87 @@
+<!doctype html>
+
+<html lang="en-US">
+
+<head>
+
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+
+    <title>欢迎来到这个网站</title>
+
+    <link rel="stylesheet" type="text/css" media="all" href="src/css/style.css">
+
+    <script type="text/javascript" src="src/js/jquery-1.9.1.min.js"></script>
+
+    <script type="text/javascript" charset="utf-8" src="src/js/jquery.leanModal.min.js"></script>
+
+</head>
+
+
+<body>
+
+<div id="w">
+
+    <div id="content">
+
+        <h1>欢迎来到这个网站</h1>
+
+
+        <p style="text-align: center">如果你是购票用户，请直接点击【填写信息】填写信息。管理员请选择登陆</p>
+        <center><a href="./page/postInfo.html" class="flatbtn" id="exit">填写信息</a></center>
+        <div style="height: 20px"></div>
+        <center><a href="#loginmodal" class="flatbtn" id="modaltrigger">Modal Login</a></center>
+
+    </div>
+
+</div>
+
+<div id="loginmodal" style="display:none;">
+
+    <h1>User Login</h1>
+
+    <div id="loginform">
+        <label for="username">Username:</label>
+
+        <input type="text" name="username" id="username" class="txtfield" tabindex="1">
+
+
+        <label for="password">Password:</label>
+
+        <input type="password" name="password" id="password" class="txtfield" tabindex="2">
+
+
+        <div class="center"><input type="submit" name="loginbtn" id="loginbtn" class="flatbtn-blu hidemodal"
+                                   value="Log In" tabindex="3"></div>
+    </div>
+
+</div>
+
+<script type="text/javascript">
+$(function () {
+    /*登录*/
+    $("#loginbtn").click(function () {
+        var name = $("#username").val()
+        var pwd = $("#password").val()
+        $.ajax({
+            type: 'GET',
+            url: 'http://localhost:3000/api/getlistdetl?name=' + name,
+            dataType: "json",
+            success: function (data) {
+                if (data.code == 0) {
+                    if (data.data[0].password == pwd) {
+                    } else {
+                        alert('密码错误！')
+                    }
+                } else {
+                    alert(data.message)
+                }
+            }
+        });
+    })
+    $('#modaltrigger').leanModal({top: 110, overlay: 0.45, closeButton: ".hidemodal"});
+});
+</script>
+
+</body>
+
+</html>

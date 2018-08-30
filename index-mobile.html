@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<script src="js/mui.min.js"></script>
+		<script src="js/mui.zoom.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/mui.picker.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/mui.poppicker.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/mui.dtpicker.js" type="text/javascript" charset="utf-8"></script>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="css/mui.picker.css" />
+		<link rel="stylesheet" type="text/css" href="css/mui.poppicker.css" />
+		<link rel="stylesheet" type="text/css" href="css/mui.dtpicker.css" />
+		<script type="text/javascript" charset="utf-8">
+			mui.init();
+		</script>
+	</head>
+	<style type="text/css">
+	body,html{
+		width: 100%;
+		height: 100%;
+		overflow: hidden;
+		background: #ffffff;
+	}
+	.mui-input-row {
+		height: auto !important;
+		}
+	.message {
+		display: inline-block;
+		font-size: 12px;
+		color: #8F8F94;
+		-webkit-box-sizing: border-box;
+		-moz-box-sizing: border-box;
+		box-sizing: border-box;
+		padding-left: 15px;
+	}
+	</style>
+
+	<body>
+		<div class="mui-scroll-wrapper">
+			<div class="mui-scroll">
+				<!--这里放置真实显示的DOM内容-->
+				<form id="reg" class="mui-input-group">
+					<div style="height: 10px;"></div>
+					<div class="mui-input-row">
+						<label>出发地</label>
+						<input type="text" name="start_site" class="mui-input-clear" placeholder="请输入出发地" value="北京">
+					</div>
+
+					<div class="mui-input-row">
+						<label>目的地</label>
+						<input type="text" name="end_site" class="mui-input-clear" placeholder="请输入目的地" value="济宁">
+					</div>
+
+					<div class="mui-input-row">
+						<label>出发时间</label>
+						<input type="text" id="start_time" name="start_time" readonly="readonly" class="mui-input-clear" placeholder="选择出发时间,可以添加多个">
+					</div>
+
+					<div class="mui-input-row">
+						<label>坐席要求</label>
+						<input type="text" id="seat" name="seat" readonly="readonly" class="mui-input-clear" placeholder="选择坐席,可以添加多个">
+					</div>
+
+					<div class="mui-input-row">
+						<label>发车时间</label>
+						<input type="text" name="train_time" class="mui-input-clear" placeholder="请输入目的地" value="这是发车时间，测试用">
+						<span class="message">要求余越低，成功率越高，最好多备选车次</span>
+					</div>
+
+					<div class="mui-input-row">
+						<label>姓名</label>
+						<input type="text" name="user_name" class="mui-input-clear" placeholder="请输入目的地" value="机甲">
+					</div>
+
+					<div class="mui-input-row">
+						<label>身份证</label>
+						<input type="text" name="user_id" class="mui-input-clear" placeholder="请输入目的地" value="11222333444">
+					</div>
+
+					<div class="mui-input-row">
+						<label>手机号</label>
+						<input type="text" name="user_phone" class="mui-input-clear" placeholder="请输入目的地" value="17622222222">
+					</div>
+
+					<div class="mui-input-row">
+						<label>12306账号</label>
+						<input type="text" name="12306_name" class="mui-input-clear" placeholder="请输入目的地" value="238926090@qq.com">
+					</div>
+
+					<div class="mui-input-row">
+						<label>12306密码</label>
+						<input type="text" name="12306_pwd" class="mui-input-clear" placeholder="请输入目的地" value="1234556">
+					</div>
+
+					<div class="mui-input-row">
+						<label>备注</label>
+						<input type="text" name="user_message" class="mui-input-clear" placeholder="请输入目的地" value="随便写点备注信息">
+					</div>
+					<div style="height: 10px;"></div>
+					<div class="mui-button-row">
+						<button type="button" class="mui-btn mui-btn-primary">确认</button>
+						<button type="button" class="mui-btn mui-btn-danger">取消</button>
+					</div>
+					<div style="height: 10px;"></div>
+				</form>
+			</div>
+		</div>
+
+	</body>
+	<script src="http://www.jq22.com/jquery/jquery-1.9.1.js"></script>
+	<script type="text/javascript">
+		$(function() {
+			mui('.mui-scroll-wrapper').scroll({
+				scrollY: true, //是否竖向滚动
+				scrollX: false, //是否横向滚动
+				startX: 0, //初始化时滚动至x
+				startY: 0, //初始化时滚动至y
+				indicators: true, //是否显示滚动条
+				deceleration: 0.0006, //阻尼系数,系数越小滑动越灵敏
+				bounce: true //是否启用回弹
+			});
+			// 创建时间组件
+			var dtPicker = new mui.DtPicker({
+				type: 'date'
+			})
+
+			var start_time_val = ''
+
+			//出发日期
+
+			$("#start_time").on('focus', function() {
+				dtPicker.show(function(item) {
+					$("#start_time")[0].blur()
+					start_time_val += item.value + ','
+					$("#start_time").val(start_time_val)
+				})
+			})
+
+			//坐席要求
+			
+			var seat_val = ''
+			$("#seat").on('focus', function() {
+				var picker = new mui.PopPicker();
+				picker.setData([
+					{text: '特等商务座', value: '特等商务座'},
+					{text: '一等座', value: '一等座'},
+					{text: '二等座', value: '二等座'},
+					{text: '高级软卧', value: '高级软卧'},
+					{text: '软卧', value: '软卧'},
+					{text: '动卧', value: '动卧'},
+					{text: '硬卧', value: '硬卧'},
+					{text: '软座', value: '软座'},
+					{text: '硬座', value: '硬座'},
+					{text: '无座', value: '无座'}
+				]);
+				picker.show(function(selectItems) {
+					$("#seat")[0].blur()
+					seat_val += selectItems[0].value + ';'
+					$("#seat").val(seat_val)
+				})
+			})
+
+            /*
+            * 提交
+            * */
+
+            $('.mui-btn-primary').click(function() {
+                var resultJson = {};// 要传递给后台的对象数据
+                var array = $("#reg").serializeArray();// 序列化表单内容
+                $(array).each(function() {
+                    resultJson[this.name] = this.value.trim();
+                });
+
+                $.ajax({
+                    type: 'POST',
+                    url: 'http://localhost:3000/api/addcard',
+                    data: resultJson,
+                    dataType: "json",
+                    success: function (data) {
+                        console.log(data);
+                    }
+                });
+
+                console.log(resultJson)
+                return false
+            });
+
+		})
+	</script>
+
+</html>
