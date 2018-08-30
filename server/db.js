@@ -10,9 +10,9 @@ app.use(bodyParser.urlencoded({ extended: false }))
 
 const mysql = require('mysql')
 const conn = mysql.createConnection({
-    host: '127.0.0.1',
-    user: 'root',
-    password: 'chenwei123',
+    host: '104.245.42.52',
+    user: 'arvay',
+    password: 'nehciew0518',
     database: '12306',
     multipleStatements: true
 })
