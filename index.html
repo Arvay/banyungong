@@ -55,7 +55,7 @@
     </div>
 
 </div>
-
+<script src="src/js/api.js"></script>
 <script type="text/javascript">
 $(function () {
     /*登录*/
@@ -64,7 +64,7 @@ $(function () {
         var pwd = $("#password").val()
         $.ajax({
             type: 'GET',
-            url: 'http://104.245.42.25/api/getlistdetl?name=' + name,
+            url: getlistdetl + name,
             dataType: "json",
             success: function (data) {
                 if (data.code == 0) {
