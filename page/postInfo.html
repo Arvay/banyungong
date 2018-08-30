@@ -9,6 +9,8 @@
     <script src="https://cdn.bootcss.com/popper.js/1.12.5/umd/popper.min.js"></script>
     <script src="https://cdn.bootcss.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
 </head>
+<style>
+</style>
 <body>
 
 <div class="container">
@@ -27,7 +29,8 @@
 
         <div class="form-group">
             <label for="start_time">出发时间:</label>
-            <input type="text" class="form-control" name="start_time" id="start_time" placeholder="输入出发时间" value="2018.10.1">
+            <input type="text" class="form-control" name="start_time" id="start_time" placeholder="输入出发时间"
+                   value="2018.10.1">
         </div>
 
         <div class="form-group">
@@ -37,7 +40,8 @@
 
         <div class="form-group">
             <label for="train_time">发车时间:</label>
-            <input type="text" class="form-control" name="train_time" id="train_time" placeholder="输入发车时间" value="2018.1.3">
+            <input type="text" class="form-control" name="train_time" id="train_time" placeholder="输入发车时间"
+                   value="2018.1.3">
         </div>
 
         <div class="form-group">
@@ -47,41 +51,55 @@
 
         <div class="form-group">
             <label for="user_id">身份证:</label>
-            <input type="text" class="form-control" name="user_id" id="user_id" placeholder="输入身份证" value="370828199411161314">
+            <input type="text" class="form-control" name="user_id" id="user_id" placeholder="输入身份证"
+                   value="370828199411161314">
         </div>
 
         <div class="form-group">
             <label for="user_phone">手机号:</label>
-            <input type="text" class="form-control" name="user_phone" id="user_phone" placeholder="输入手机号" value="17600079797">
+            <input type="text" class="form-control" name="user_phone" id="user_phone" placeholder="输入手机号"
+                   value="17600079797">
         </div>
 
         <div class="form-group">
             <label for="12306_name">12306账号:</label>
-            <input type="text" class="form-control" name="12306_name" id="12306_name" placeholder="输入12306账号" value="237826090@qqcom">
+            <input type="text" class="form-control" name="12306_name" id="12306_name" placeholder="输入12306账号"
+                   value="237826090@qqcom">
         </div>
 
         <div class="form-group">
             <label for="12306_pwd">12306密码:</label>
-            <input type="text" class="form-control"  name="12306_pwd" id="12306_pwd" placeholder="输入12306密码" value="c123123">
+            <input type="text" class="form-control" name="12306_pwd" id="12306_pwd" placeholder="输入12306密码"
+                   value="c123123">
         </div>
 
         <div class="form-group">
             <label for="user_message">备注:</label>
-            <input type="text" class="form-control" name="user_message" id="user_message" placeholder="输入备注" value="这是备注不知道到些什么，嗷嗷嗷啊">
+            <input type="text" class="form-control" name="user_message" id="user_message" placeholder="输入备注"
+                   value="这是备注不知道到些什么，嗷嗷嗷啊">
         </div>
 
         <button type="submit" class="btn btn-primary">提交</button>
     </form>
     <div style="height: 50px"></div>
+
+    <!--提示信息-->
+    <div class="container">
+        <h2>模态框实例</h2>
+        <!-- 按钮：用于打开模态框 -->
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+            打开模态框
+        </button>
+    </div>
 </div>
 </body>
 <script src="../src/js/api.js"></script>
 <script>
-    $(function() {
-        $('.btn').click(function() {
+    $(function () {
+        $('.btn').click(function () {
             var resultJson = {};// 要传递给后台的对象数据
             var array = $("#reg").serializeArray();// 序列化表单内容
-            $(array).each(function() {
+            $(array).each(function () {
                 resultJson[this.name] = this.value.trim();
             });
 
@@ -91,7 +109,9 @@
                 data: resultJson,
                 dataType: "json",
                 success: function (data) {
-                    console.log(data);
+                    if (data.code == 0) {
+                        alert('提交成功')
+                    }
                 }
             });
 
