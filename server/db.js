@@ -13,7 +13,7 @@ const conn = mysql.createConnection({
     host: '104.245.42.52',
     user: 'arvay',
     password: 'nehciew0518',
-    database: '12306',
+    database: 'byg',
     multipleStatements: true
 })
 // 获取表中所有数据
@@ -43,7 +43,7 @@ app.post('/api/addcard', (req, res) => {
     user.create_time = moment().format('YYYY-MM-DD HH:mm:ss')
     const sqlStr = 'insert into userInfo set ?'
     conn.query(sqlStr, user, (err, results) => {
-        if (err) return res.json({ code: 1, message: err, affectedRows: 0 })
+        if (err) return res.json({ code: 1, message: '失败' + err, affectedRows: 0 })
         res.json({ code: 0, message: '恭喜成功', affectedRows: results.affectedRows })
     })
 })
