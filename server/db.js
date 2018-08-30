@@ -14,6 +14,7 @@ const conn = mysql.createConnection({
     user: 'arvay',
     password: 'nehciew0518',
     database: 'byg',
+    port: '55667',
     multipleStatements: true
 })
 // 获取表中所有数据
